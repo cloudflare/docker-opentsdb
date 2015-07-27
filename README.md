@@ -39,6 +39,17 @@ variables that control cleanup process:
 * `TSD_CACHE_CLEANUP_INTERVAL` interval between cleanups in seconds
 * `TSD_CACHE_MAX_AGE_MINUTES` max age of cache files in minutes
 
+## Running ad-hoc OpenTSDB commands
+
+If you supply any args to the image, they will be passed to `tsdb` executable.
+This way you could run `fsck`:
+
+```
+docker run [...] cloudflare/opentsdb:2.1.0 fsck --full-scan --fix-all --compact
+```
+
+Config is is still picked up from environment in this case.
+
 ## Security
 
 After initial configuration container drops root privileges and runs

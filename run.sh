@@ -21,4 +21,4 @@ fi
 
 chown opentsdb "${TSD_CONF_tsd__http__cachedir}"
 
-exec gosu opentsdb /unprivileged.sh
+exec gosu opentsdb /unprivileged.sh "$@"

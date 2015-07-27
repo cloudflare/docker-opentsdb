@@ -12,4 +12,8 @@ export TSD_CACHE_MAX_AGE_MINUTES=${TSD_CACHE_MAX_AGE_MINUTES:-60}
     echo "[$(date)] Cache cleanup complete"
 done) &
 
-exec /opt/opentsdb/build/tsdb tsd --config /opt/opentsdb/src/opentsdb.conf
+if [ "${1}" = "" ]; then
+    exec /opt/opentsdb/build/tsdb tsd --config /opt/opentsdb/src/opentsdb.conf
+fi
+
+exec /opt/opentsdb/build/tsdb "$@" --config /opt/opentsdb/src/opentsdb.conf
