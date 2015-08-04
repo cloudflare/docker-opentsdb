@@ -4,7 +4,7 @@ ENV OPENTSDB_VERSION=2.1.0
 
 RUN useradd opentsdb && \
     apt-get update && \
-    apt-get upgrade && \
+    apt-get upgrade -y && \
     apt-get install --no-install-recommends -y gnuplot && \
     apt-get clean && \
     curl -sL https://github.com/OpenTSDB/opentsdb/releases/download/v${OPENTSDB_VERSION}/opentsdb-${OPENTSDB_VERSION}.tar.gz | tar zx -C /opt && \
