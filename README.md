@@ -39,6 +39,12 @@ variables that control cleanup process:
 * `TSD_CACHE_CLEANUP_INTERVAL` interval between cleanups in seconds
 * `TSD_CACHE_MAX_AGE_MINUTES` max age of cache files in minutes
 
+## TSD telemetry
+
+Setting `TSD_TELEMETRY_INTERVAL` to some positive value enables feeding
+TSD metrics back to OpenTSDB. Value for `host` tag will be taken from
+`MESOS_TASK_ID` if possible or from `hostname -s` output.
+
 ## Running ad-hoc OpenTSDB commands
 
 If you supply any args to the image, they will be passed to `tsdb` executable.
