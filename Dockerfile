@@ -1,16 +1,16 @@
 FROM java:8u45
 
-ENV OPENTSDB_VERSION=2.1.0
+ENV OPENTSDB_COMMIT=010ed96a572f33b35b570cc4c4ce80a5a97b371a
 
 RUN useradd opentsdb && \
     apt-get update && \
     apt-get upgrade -y && \
-    apt-get install --no-install-recommends -y gnuplot && \
+    apt-get install --no-install-recommends -y gnuplot git ca-certificates && \
     apt-get clean && \
-    curl -sL https://github.com/OpenTSDB/opentsdb/releases/download/v${OPENTSDB_VERSION}/opentsdb-${OPENTSDB_VERSION}.tar.gz | tar zx -C /opt && \
-    mv /opt/opentsdb-${OPENTSDB_VERSION} /opt/opentsdb && \
+    git clone -b next https://github.com/OpenTSDB/opentsdb.git /opt/opentsdb && \
     cd /opt/opentsdb && \
-    apt-get install -y make && \
+    git reset --hard $OPENTSDB_COMMIT && \
+    apt-get install -y make automake && \
     sed -i "s/MAX_NUM_TAGS = 8/MAX_NUM_TAGS = 12/" src/core/Const.java && \
     ./build.sh && \
     mkdir build/plugins && \
