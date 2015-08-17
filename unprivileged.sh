@@ -21,9 +21,9 @@ if [ "${TSD_TELEMETRY_INTERVAL:-0}" != "0" ]; then
     (while true; do
         sleep "${TSD_TELEMETRY_INTERVAL}"
         echo "[$(date)] Writing own metrics"
-        curl -s "http://$TSD_BIND:$TSD_PORT/api/stats" | \
+        curl --max-time 2 -s "http://$TSD_BIND:$TSD_PORT/api/stats" | \
           sed -e "s#\"host\":\"[^\"]*\"#\"host\":\"$TSD_HOST\"#g" | \
-          curl -s -X POST -H "Content-type: application/json" "http://$TSD_BIND:$TSD_PORT/api/put" -d @-
+          curl --max-time 2 -s -X POST -H "Content-type: application/json" "http://$TSD_BIND:$TSD_PORT/api/put" -d @-
     done) &
 fi
 
