@@ -104,4 +104,4 @@ are required.
 
 ## License
 
-MIT
+[MIT](LICENSE)
