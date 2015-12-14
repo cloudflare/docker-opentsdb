@@ -14,7 +14,7 @@ you should:
 
 You can also make variable name upper case. An example:
 
-* `tsd.network.async_io` becomes `TSD_CONF_TSD__NETWORK__ASYNC_IO`
+* `tsd.network.async_io` becomes `TSD_CONF_tsd__network__async_io`
 
 To see available configuration properties, take a look at config
 [options](http://opentsdb.net/docs/build/html/user_guide/configuration.html).
@@ -68,7 +68,7 @@ with dedicated `opentsdb` user.
   "id": "/opentsdb/tsd",
   "container": {
     "docker": {
-      "image": "cloudflare/opentsdb:2.1.0",
+      "image": "cloudflare/opentsdb:2.2.0RC3",
       "network": "HOST"
     },
     "type": "DOCKER"
@@ -95,12 +95,6 @@ with dedicated `opentsdb` user.
 
 This image is also [zoidberg](https://github.com/bobrik/zoidberg) and
 [zoidberg-nginx](https://github.com/bobrik/zoidberg-nginx) friendly.
-
-## OpenTSDB distribution changes
-
-Util [the issue](https://github.com/OpenTSDB/opentsdb/issues/437) is resolved,
-we change `MAX_NUM_TAGS` from 8 to 12 to enabled use-cases where more tags
-are required.
 
 ## License
 
