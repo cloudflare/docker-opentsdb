@@ -26,7 +26,7 @@ can change this env variable to tune JVM. It's a good idea to set heap
 size limit with `-Xmx` option:
 
 ```
-JVMARGS="-Xmx1024m -enableassertions -enablesystemassertions"
+JVMARGS="-Xms2g -Xmx2g -enableassertions -enablesystemassertions"
 ```
 
 ## Cache cleanup
@@ -51,7 +51,7 @@ If you supply any args to the image, they will be passed to `tsdb` executable.
 This way you could run `fsck`:
 
 ```
-docker run [...] cloudflare/opentsdb:2.1.0 fsck --full-scan --fix-all --compact
+docker run [...] cloudflare/opentsdb:2.2.0 fsck --full-scan --fix-all --compact
 ```
 
 Config is is still picked up from environment in this case.
@@ -66,18 +66,19 @@ with dedicated `opentsdb` user.
 ```json
 {
   "id": "/opentsdb/tsd",
-  "container": {
-    "docker": {
-      "image": "cloudflare/opentsdb:2.2.0RC3",
-      "network": "HOST"
-    },
-    "type": "DOCKER"
-  },
   "cpus": 1,
   "instances": 1,
-  "mem": 1536,
+  "mem": 3072,
+  "ports": [0],
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "cloudflare/opentsdb:2.2.0",
+      "network": "HOST"
+    }
+  },
   "env": {
-    "VMARGS": "-Xmx1024m -enableassertions -enablesystemassertions",
+    "VMARGS": "-Xms2g -Xmx2g -enableassertions -enablesystemassertions",
     "TSD_CONF_tsd__storage__hbase__zk_quorum": "zk:2181"
   },
   "healthChecks": [
