@@ -1,16 +1,18 @@
-FROM java:8u66-jre
+FROM java:8u72-jre
 
 RUN useradd opentsdb && \
     apt-get update && \
     apt-get upgrade -y && \
-    apt-get install --no-install-recommends -y gnuplot && \
+    apt-get install --no-install-recommends -y gnuplot-nox && \
     apt-get clean && \
-    curl -sL https://github.com/OpenTSDB/opentsdb/releases/download/v2.2.0RC3/opentsdb-2.2.0RC3_all.deb > /tmp/opentsdb.deb && \
-    echo "e0f4c71f73df59dbd5101c62a34ab5b9a1967384033e23dbbfae9a550cf10b3e56c007f995c390801518d023672b81b9a8134e7f35e7f1e0a1e0f5d3f433ff0a  /tmp/opentsdb.deb" | sha512sum -c && \
+    rm -rf /var/lib/apt/lists/* && \
+    curl -L https://github.com/OpenTSDB/opentsdb/releases/download/v2.2.0/opentsdb-2.2.0_all.deb > /tmp/opentsdb.deb && \
+    echo "e24b119b25b292a741e5f5ea017f17fb732966b919dbd27f1b9b47f7e1a19323452ef6005e09945aa551316a7a7300b3555ef2ae4f4e6fc00f932983a5bb748b  /tmp/opentsdb.deb" | sha512sum -c && \
     dpkg -i /tmp/opentsdb.deb && \
     rm /tmp/opentsdb.deb && \
     rm /etc/opentsdb/opentsdb.conf && \
-    curl -sL "https://github.com/tianon/gosu/releases/download/1.4/gosu-amd64" > /usr/sbin/gosu && \
+    curl -sL "https://github.com/tianon/gosu/releases/download/1.7/gosu-amd64" > /usr/sbin/gosu && \
+    echo "34049cfc713e8b74b90d6de49690fa601dc040021980812b2f1f691534be8a50  /usr/sbin/gosu" | sha256sum -c && \
     chmod +x /usr/sbin/gosu
 
 COPY ./run.sh /run.sh
