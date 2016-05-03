@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!--<jmxConfigurator/>-->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <pattern>
+        %d{ISO8601} %-5level %logger{0}: %msg%n
+      </pattern>
+    </encoder>
+  </appender>
+
+  <!-- Per class logger levels -->
+  <logger name="QueryLog" level="INFO" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+
+  <!-- Fallthrough root logger and router -->
+  <root level="WARN">
+    <appender-ref ref="STDOUT" />
+  </root>
+</configuration>
