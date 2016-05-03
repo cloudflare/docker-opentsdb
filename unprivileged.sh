@@ -7,9 +7,9 @@ export TSD_CACHE_MAX_AGE_MINUTES=${TSD_CACHE_MAX_AGE_MINUTES:-60}
 # Remove files older than 1h every 10m
 (while true; do
     sleep "${TSD_CACHE_CLEANUP_INTERVAL}"
-    echo "[$(date)] Doing cache cleanup"
+    echo "$(date -u '+%F %T,000') INFO  DockerCacheCleanup: Doing cache cleanup"
     find /var/cache/opentsdb -mindepth 1 -mmin "+${TSD_CACHE_MAX_AGE_MINUTES}" -delete;
-    echo "[$(date)] Cache cleanup complete"
+    echo "$(date -u '+%F %T,000') INFO  DockerCacheCleanup: Cache cleanup complete"
 done) &
 
 # Feeding opentsdb metrics back to itself
@@ -20,7 +20,7 @@ if [ "${TSD_TELEMETRY_INTERVAL:-0}" != "0" ]; then
 
     (while true; do
         sleep "${TSD_TELEMETRY_INTERVAL}"
-        echo "[$(date)] Writing own metrics"
+        echo "$(date -u '+%F %T,000') INFO  DockerOwnMetrics: Writing own metrics"
         curl --max-time 2 -s "http://$TSD_BIND:$TSD_PORT/api/stats" | \
           sed -e "s#\"host\":\"[^\"]*\"#\"host\":\"$TSD_HOST\"#g" | \
           curl --max-time 2 -s -X POST -H "Content-type: application/json" "http://$TSD_BIND:$TSD_PORT/api/put" -d @-
