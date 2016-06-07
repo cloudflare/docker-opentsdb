@@ -5,6 +5,7 @@ set -e
 export TSD_CONF_tsd__network__port=${TSD_CONF_tsd__network__port:-${PORT}}
 export TSD_CONF_tsd__http__cachedir=${TSD_CONF_tsd__http__cachedir:-/var/cache/opentsdb}
 export TSD_CONF_tsd__http__staticroot=${TSD_CONF_tsd__http__staticroot:-/usr/share/opentsdb/static}
+export TSD_LOGLEVEL=${TSD_LOGLEVEL:-INFO}
 
 if [ ! -e /etc/opentsdb/opentsdb.conf ]; then
     touch /etc/opentsdb/opentsdb.conf
@@ -18,6 +19,8 @@ if [ ! -e /etc/opentsdb/opentsdb.conf ]; then
         fi
     done
 fi
+
+sed -i "s/{{LOGLEVEL}}/${TSD_LOGLEVEL}/" /etc/opentsdb/logback.xml
 
 chown opentsdb "${TSD_CONF_tsd__http__cachedir}"
 
