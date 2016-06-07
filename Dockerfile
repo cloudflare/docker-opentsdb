@@ -15,6 +15,7 @@ RUN useradd opentsdb && \
     echo "34049cfc713e8b74b90d6de49690fa601dc040021980812b2f1f691534be8a50  /usr/sbin/gosu" | sha256sum -c && \
     chmod +x /usr/sbin/gosu
 
+COPY ./logback.xml /etc/opentsdb/logback.xml
 COPY ./run.sh /run.sh
 COPY ./unprivileged.sh /unprivileged.sh
 
