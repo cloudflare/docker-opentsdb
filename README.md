@@ -45,6 +45,17 @@ Setting `TSD_TELEMETRY_INTERVAL` to some positive value enables feeding
 TSD metrics back to OpenTSDB. Value for `host` tag will be taken from
 `MESOS_TASK_ID` if possible or from `hostname -s` output.
 
+## Log level
+
+The following log level env variables exist:
+
+* `TSD_ROOT_LOG_LEVEL` to set root log level, defaults to `INFO`.
+* `TSD_QUERY_LOG_LEVEL` to set query log level, defaults to `INFO`.
+
+Note that default root log level is quite verbose and you'll probably want
+to change it to `WARN` for production. Setting query log level to `WARN`
+or higher effectively disables query logging.
+
 ## Running ad-hoc OpenTSDB commands
 
 If you supply any args to the image, they will be passed to `tsdb` executable.

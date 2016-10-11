@@ -10,12 +10,12 @@
   </appender>
 
   <!-- Per class logger levels -->
-  <logger name="QueryLog" level="INFO" additivity="false">
+  <logger name="QueryLog" level="{{QUERY_LOG_LEVEL}}" additivity="false">
     <appender-ref ref="STDOUT"/>
   </logger>
 
   <!-- Fallthrough root logger and router -->
-  <root level="WARN">
+  <root level="{{ROOT_LOG_LEVEL}}">
     <appender-ref ref="STDOUT" />
   </root>
 </configuration>
