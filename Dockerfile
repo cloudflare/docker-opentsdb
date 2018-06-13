@@ -5,8 +5,8 @@ RUN useradd opentsdb && \
     apt-get install --no-install-recommends -y gnuplot-nox && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
-    curl -L https://github.com/OpenTSDB/opentsdb/releases/download/v2.3.0/opentsdb-2.3.0_all.deb > /tmp/opentsdb.deb && \
-    echo "f72bd4eb6323618435417a4843aca85627e6e24c28f6782c21b96f44e7a3b18ba469e8872d6c583a51f28fb1e843065bfbf501902008841d9a45740e5d0803e5  /tmp/opentsdb.deb" | sha512sum -c && \
+    curl -L https://github.com/OpenTSDB/opentsdb/releases/download/v2.3.1/opentsdb-2.3.1_all.deb > /tmp/opentsdb.deb && \
+    echo "f1f118a98c4be9ae1ac5fd31bec37a7da992c4f56d3a4402ddfbf387b179dbd915386e4cb04bb415243b64f5c6b9091390cff8da386a2b765b88dc6e85db7141  /tmp/opentsdb.deb" | sha512sum -c && \
     dpkg -i /tmp/opentsdb.deb && \
     rm /tmp/opentsdb.deb && \
     rm /etc/opentsdb/opentsdb.conf && \
